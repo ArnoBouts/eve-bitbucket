@@ -2,7 +2,7 @@
 
 SHA=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/refs/branches/${PLUGIN_BRANCH} | cut -d'"' -f6)
 
-cd $pwd/eve
+cd eve
 
 grep -H -o -r "${PLUGIN_VARIABLE} [1-9a-fA-F]*$" * | while read LINE
 do
