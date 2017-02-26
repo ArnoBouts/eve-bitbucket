@@ -1,6 +1,15 @@
 #!/bin/sh
 
-sha=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/refs/branches/${PLUGIN_BRANCH} | cut -d'"' -f6)
-echo "${PLUGIN_VARIABLE} $sha"
-sed -i -e "s/${PLUGIN_VARIABLE} .*\$/${PLUGIN_VARIABLE} $sha/1" ${PLUGIN_FILE}
+SHA=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/refs/branches/${PLUGIN_BRANCH} | cut -d'"' -f6)
 
+cd $pwd/eve
+
+grep -H -o -r "${PLUGIN_VARIABLE} [1-9a-fA-F]*$" * | while read LINE
+do
+        FILE=`echo $LINE | cut -d":" -f1`
+        OLD=`echo $LINE | cut -d" " -f2`
+
+        echo "${FILE} : ${PLUGIN_VARIABLE} : ${OLD} -> ${SHA}"
+        sed -i -e "s/${PLUGIN_VARIABLE} [0-9a-fA-F]*\$/${PLUGIN_VARIABLE} ${SHA}/1" ${FILE}
+
+done
