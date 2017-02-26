@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sha=$(curl -s https://api.bitbucket.org/2.0/repositories/$1/refs/branches/$2 | cut -d'"' -f6)
-echo "$3 $sha"
-sed -i -e "s/$3 .*\$/$3 $sha/1" $4
+sha=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/refs/branches/${PLUGIN_BRANCH} | cut -d'"' -f6)
+echo "${PLUGIN_VARIABLE} $sha"
+sed -i -e "s/${PLUGIN_VARIABLE} .*\$/${PLUGIN_VARIABLE} $sha/1" ${PLUGIN_FILE}
 
