@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SHA=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/refs/branches/${PLUGIN_BRANCH} | cut -d'"' -f6)
+SHA=$(curl -s https://api.bitbucket.org/2.0/repositories/${PLUGIN_REPOSITORY}/commits/${PLUGIN_BRANCH} | cut -d'"' -f8)
 
 cd eve
 
